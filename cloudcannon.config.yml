@@ -1,0 +1,42 @@
+paths:
+  uploads: assets
+  uploads_use_relative_path: false
+  static: ''
+collections_config:
+  pages:
+    path: ''
+    name: Pages
+    icon: wysiwyg
+    disable_url: false
+    include_developer_files: false
+    preview:
+      text:
+      subtext:
+      icon:
+      icon_color:
+      icon_background_color:
+      image:
+      metadata:
+      gallery:
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+  assets:
+    path: assets
+    icon: cases
+    disable_url: false
+    include_developer_files: false
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+  assets_data:
+    path: assets/data
+    icon: chart_data
+    disable_url: false
+    include_developer_files: false
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+_enabled_editors:
+  - visual
+timezone: Etc/UTC
