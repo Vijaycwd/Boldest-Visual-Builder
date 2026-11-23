@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOLDEST — Cognitive Commerce: a 360° view</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Geist+Mono:wght@400..500&display=swap">
+<style>
+:root{
+  --page:#FFFFFF; --soft:#F8F7F4; --ink:#1C1B19; --ink-2:#55524D; --ink-3:#716D67;
+  --line:#E8E5E0; --line-2:#D9D5CE;
+  --gold:#B08A52; --gold-d:#86622C; --gold-l:#F5ECDD;
+  --pink:#D9576E; --pink-d:#B23A52; --pink-l:#FCE7EB;
+  --font:"Geist","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* header */
+.cc{max-width:1520px;margin:0 auto;padding:clamp(40px,6vw,96px) clamp(12px,3vw,44px)}
+.cc-head{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(0,1fr);gap:40px;align-items:end;margin-bottom:clamp(28px,4vw,48px)}
+.cc-eyebrow{display:inline-flex;gap:10px;align-items:center;font-size:15px;font-weight:500;color:var(--ink-2);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--soft)}
+.cc-eyebrow i{width:9px;height:9px;border-radius:50%;background:var(--pink)}
+.cc-title{font-size:clamp(38px,5vw,84px);line-height:1;letter-spacing:-.045em;font-weight:500;margin:22px 0 0}
+.cc-title span{display:block}
+.cc-lede{font-size:clamp(17px,1.35vw,20px);line-height:1.6;color:var(--ink-2);max-width:460px;justify-self:end;margin:0 0 .4em}
+
+/* app frame */
+.eco{position:relative;color:var(--ink);border-radius:clamp(18px,2vw,28px);overflow:hidden;
+  background:radial-gradient(52% 62% at 47% 52%,#FBF6EE 0%,#FFFFFF 72%);border:1px solid var(--line)}
+.eco button{font:inherit;color:inherit}
+.eco button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:550}
+.brand svg{width:30px;height:30px;flex:none}
+.bar-h{margin:0;font-size:clamp(17px,1.5vw,21px);font-weight:600;letter-spacing:-.015em;line-height:1.2}
+.brand small{display:block;font-size:14px;color:var(--ink-3);font-weight:400;margin-top:2px}
+.bar-r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{font-size:14px;color:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:8px 14px;display:inline-flex;gap:8px;align-items:center;background:#fff;min-height:40px;white-space:nowrap}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.pill.live i{animation:blink 2.4s ease-in-out infinite}
+@keyframes blink{50%{opacity:.25}}
+.btn{cursor:pointer;transition:color .2s,border-color .2s}
+.btn:hover{color:var(--ink);border-color:var(--line-2)}
+
+.body{display:grid;grid-template-columns:minmax(0,1fr) 360px}
+.stage{position:relative;min-width:0;width:100%;margin:0 auto;align-self:center}
+.stage canvas,.stage svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#viz text{font-family:var(--font)}
+
+/* svg — desktop sizes (viewBox units) */
+.ttl{font-size:37px;font-weight:600;letter-spacing:-.02em;fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:8px;stroke-linejoin:round}
+.ttl .cnt{font-weight:500;fill:var(--ink-3)}
+.ttl.e .cnt{fill:var(--pink-d)} .ttl.x .cnt,.ttl.k .cnt{fill:var(--gold-d)}
+.eco.m .ttl{font-size:27px}
+.hdr{font-family:var(--mono)!important;font-size:14px;letter-spacing:.12em;fill:var(--ink-3);font-weight:500}
+.row{cursor:pointer;outline:none;transition:opacity .35s}
+.row .hit{fill:transparent}
+.row .bgr{fill:transparent;stroke:transparent;transition:fill .25s,stroke .25s}
+.row:hover .bgr,.row.on .bgr{fill:#F6F2EB;stroke:#E6DCCB}
+.row:focus-visible .bgr{stroke:var(--gold)}
+.ico{fill:none;stroke:#6B6762;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s}
+.lab,.clab{font-size:27px;fill:#2A2825;transition:fill .25s}
+.idx{font-family:var(--mono)!important;font-size:13px;fill:var(--ink-3)}
+.port{fill:#fff;stroke:#8F8A83;stroke-width:1.5;transition:fill .25s,stroke .25s}
+.row:hover .ico,.row.on .ico{stroke:var(--gold-d)}
+.row:hover .lab,.row.on .lab{fill:#000}
+.row:hover .port,.row.on .port{fill:var(--gold);stroke:var(--gold)}
+
+.wire{fill:none;stroke:url(#gIn);stroke-width:1.4;stroke-linecap:round;stroke-dasharray:1 1;stroke-dashoffset:0;transition:stroke-dashoffset 1s var(--ease) var(--d,0s),opacity .3s,stroke-width .3s}
+.fan{fill:none;stroke:url(#gOut);stroke-width:1.4;stroke-linecap:round;stroke-dasharray:1 1;stroke-dashoffset:0;transition:stroke-dashoffset .9s var(--ease) var(--d,0s),opacity .3s,stroke-width .3s}
+.wire.on{stroke:var(--gold);stroke-width:2.8}
+.fan.on{stroke:var(--pink);stroke-width:2.8}
+.eco.pre .wire,.eco.pre .fan{stroke-dashoffset:1}
+
+.ring{fill:none;stroke:rgba(150,112,58,.55);stroke-width:1.6;transition:stroke .3s,stroke-width .3s}
+.ring.on{stroke:var(--gold-d);stroke-width:3}
+.ring-lab{font-family:var(--mono)!important;font-size:17px;font-weight:500;fill:var(--gold-d);opacity:0;transition:opacity .3s}
+.ring-lab.on{opacity:1}
+.ring-bg{fill:#fff;stroke:var(--gold);stroke-width:1;opacity:0;transition:opacity .3s}
+.ring-bg.on{opacity:1}
+
+.core{cursor:pointer;outline:none}
+.core .hit{fill:transparent}
+.core-t{font-family:var(--mono)!important;font-size:13px;letter-spacing:.14em;font-weight:600;fill:var(--gold-d)}
+.core-s{font-size:21px;font-weight:600;letter-spacing:.02em;fill:var(--gold-d);paint-order:stroke;stroke:#fff;stroke-width:0;stroke-linejoin:round}
+.core-ring{fill:none;stroke:transparent;stroke-width:1.5}
+.hub-a{font-size:18px;fill:var(--ink-2)}
+.hub-b{font-size:25px;font-weight:600;letter-spacing:-.01em;fill:var(--ink)}
+.hub-c{font-size:20px;font-weight:600;fill:var(--ink)}
+.eco.m .hub-a{font-size:16px} .eco.m .hub-b{font-size:21px} .eco.m .hub-c{font-size:17px}
+.ring.deco{stroke:rgba(150,112,58,.42);stroke-width:1.3}
+.wire.link{stroke:var(--gold);stroke-width:2}
+.eco.m .wire.link{stroke:var(--gold)}
+.more{fill:var(--gold-d)}
+.core-disc{fill:#fff;stroke:rgba(176,138,82,.5);stroke-width:1.3;transition:stroke .25s}
+.core:hover .core-disc,.core.on .core-disc{stroke:var(--gold)}
+.core:focus-visible .core-ring{stroke:var(--gold)}
+.core:hover .core-s,.core.on .core-s{fill:#5E431B}
+
+.cap{cursor:pointer;outline:none;transition:opacity .35s}
+.cap .hit{fill:transparent}
+.cap .bgr{fill:transparent;stroke:transparent;transition:fill .25s,stroke .25s}
+.cap.on .bgr,.cap:hover .bgr{fill:#FDF0F2;stroke:#F3CCD4}
+.cnode{fill:#fff;stroke:var(--pink);stroke-width:1.8;transition:fill .25s,stroke .25s}
+.cap:hover .cnode,.cap.on .cnode{fill:var(--pink)}
+.cap:hover .clab,.cap.on .clab{fill:#000}
+.cap:focus-visible .cnode{stroke:var(--pink-d);stroke-width:3}
+.arc{fill:none;stroke:rgba(217,87,110,.28);stroke-width:1.1;stroke-dasharray:2 5}
+
+.eco.f-surface .row:not(.on),.eco.f-capability .cap:not(.on){opacity:.38}
+.eco.f-surface .wire:not(.on){opacity:.25}
+.eco.f-surface .fan{opacity:.5}
+.eco.f-surface .link{opacity:.4}
+.eco.f-capability .fan:not(.on){opacity:.22}
+.eco.f-capability .wire{opacity:.7}
+.eco.f-domain .wire,.eco.f-domain .fan{opacity:.3}
+
+.rv{transition:opacity .6s ease var(--d,0s)}
+.eco.pre .rv{opacity:0}
+.eco.no-tr .rv,.eco.no-tr .wire,.eco.no-tr .fan{transition:none!important}
+.eco.settled .rv,.eco.settled .wire,.eco.settled .fan{transition-delay:0s!important}
+
+/* mobile layout of the chart (viewBox is narrower, so units are larger) */
+.eco.m .hdr{font-size:18px;letter-spacing:.1em;paint-order:stroke;stroke:#fff;stroke-width:10px;stroke-linejoin:round}
+.eco.m .lab,.eco.m .clab{font-size:21px}
+.eco.m .ico{stroke-width:1.7}
+.eco.m .core-s{font-size:19px}
+.eco.m .core-t{font-size:12.5px;letter-spacing:.1em}
+.eco.m .ring-lab{font-size:16px}
+.eco.m .wire{stroke:rgba(176,138,82,.55)}
+.eco.m .fan{stroke:rgba(217,87,110,.55)}
+.eco.m .wire.on{stroke:var(--gold);stroke-width:3.4}
+.eco.m .fan.on{stroke:var(--pink);stroke-width:3.4}
+.eco.m .port,.eco.m .cnode{stroke-width:2}
+
+/* ===== mobile: stacked boxes, everything visible ===== */
+.mflow{display:none}
+.eco.m #viz,.eco.m #cv{display:none}
+.eco.m .stage{aspect-ratio:auto!important}
+.mflow svg{position:static!important;inset:auto;display:block}
+.eco.m .mflow{display:block;padding:12px 10px 14px}
+.mb{border:1px solid var(--line);border-radius:16px;background:#fff;padding:10px 10px 11px}
+.mb.e{border-color:#F3D3DA;background:linear-gradient(180deg,#FFF6F7,#fff 60%)}
+.mb.x{border-color:#EADFCC;background:linear-gradient(180deg,#FCF8F1,#fff 60%)}
+.mb.k{border-color:#E2D2B6;background:linear-gradient(180deg,#F8F0E2,#fff 70%)}
+.mb-h{display:flex;align-items:center;gap:8px;margin:0 0 7px;width:100%;background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit}
+button.mb-h{cursor:pointer}
+.mb-h h4{margin:0;font-size:17px;font-weight:650;letter-spacing:-.015em;line-height:1.2}
+.mb-h .dot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--gold)}
+.mb.e .mb-h .dot{background:var(--pink)}
+.mb-h .info{margin-left:auto;width:22px;height:22px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font:600 12px/1 var(--font);color:var(--ink-3);flex:none}
+.mb-h.on .info{background:var(--gold);border-color:var(--gold);color:#fff}
+.mchips{display:flex;flex-wrap:wrap;gap:5px}
+.mchip{cursor:pointer;display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 9px;font-size:13px;line-height:1.2;color:var(--ink);min-height:28px;transition:background .2s,border-color .2s,color .2s}
+.mchip.e{border-color:#EFC6CF}
+.mchip.e.on{background:var(--pink);border-color:var(--pink);color:#fff}
+.mchip.x.on,.mchip.k.on,.mchip.d.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.mchip.on svg{stroke:#fff}
+.mgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.mgrid .mchip{border-radius:10px;padding:3px 5px;min-height:28px;gap:5px;font-size:12.6px;letter-spacing:-.01em;min-width:0}
+.mgrid .mchip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mchip svg{width:14px!important;height:14px!important;flex:none;fill:none;stroke:#6B6762;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.msys{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.msys .mchip{justify-content:center;border-radius:9px;padding:4px 2px;font-weight:650;font-size:12.5px;color:var(--gold-d);background:var(--gold-l);border-color:rgba(176,138,82,.4)}
+.msub{font-size:12px;font-weight:600;color:var(--ink-3);margin:10px 0 5px}
+.mdoms .mchip{font-size:11.5px;min-height:26px;padding:3px 8px;font-family:var(--mono);color:var(--gold-d)}
+.mnote{margin:0;font-size:13.5px;line-height:1.45;color:var(--ink-2)}
+/* connectors between boxes */
+.mc{display:flex;align-items:center;justify-content:center;gap:8px;height:30px;position:relative}
+.mc.ch{height:46px}
+.mc.ch .mlab{padding:6px 12px;font-size:13px;border-color:var(--gold);background:#fff;box-shadow:0 0 0 4px rgba(176,138,82,.08)}
+.mc.ch .mlab b{font-size:14.5px}
+.mc .mlab .i{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font:600 11px/1 var(--font);color:var(--ink-3)}
+.mc::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:linear-gradient(var(--line-2),var(--gold))}
+.mc .mlab{position:relative;z-index:1;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-size:12.5px;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+.mc .mlab b{color:var(--ink);font-weight:600}
+.mc button.mlab{cursor:pointer}
+.mc .mlab.on{border-color:var(--gold);background:var(--gold-l)}
+.mc .mlab::after{content:"↓";color:var(--gold-d);font-weight:700}
+/* inline details */
+.mdet:empty{display:none}
+#md-c{margin:2px 0 4px}
+.mdet{margin-top:10px;border-radius:12px;background:var(--soft);border:1px solid var(--line);padding:10px 12px;animation:pin .3s var(--ease)}
+.mdet .hd{display:flex;align-items:center;gap:8px}
+.mdet b{font-size:15px}
+.mdet .x{margin-left:auto;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:999px;font-size:12px;padding:3px 9px;color:var(--ink-2);min-height:28px}
+.mdet p{font-size:13.5px;line-height:1.5;color:var(--ink-2);margin:4px 0 0}
+.msub b{color:var(--gold-d);font-weight:700}
+.mchip.d.more{background:var(--gold-l)}
+.mchip.d.more.on{background:var(--gold);color:#fff}
+.mmh{font-size:12px;font-weight:600;color:var(--ink-3);margin:10px 0 6px}
+.mmedia{display:flex;flex-wrap:wrap;gap:5px}
+.mmedia span{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 10px 4px 8px;font-size:13px;border:1px solid var(--line)}
+.mmedia svg{width:14px!important;height:14px!important}
+.mmedia .y{background:var(--gold-l);border-color:rgba(176,138,82,.45);color:var(--gold-d);font-weight:600}
+.mmedia .n{color:#A9A49D;text-decoration:line-through}
+.mnv{display:flex;gap:6px;margin-top:10px}
+.mnv button{flex:1;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:10px;min-height:38px;padding:6px 10px;font-size:13px;color:var(--ink);font-weight:550}
+.mnv button:last-child{text-align:right}
+.mhint{font-size:12px;color:var(--ink-3);text-align:center;margin:8px 0 0}
+
+/* detail panel */
+.panel{border-left:1px solid var(--line);display:flex;flex-direction:column;padding:18px;gap:12px;min-width:0;outline:none;background:rgba(248,247,244,.6)}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
+.p-in.swap{animation:pin .4s var(--ease)}
+@keyframes pin{from{opacity:0}to{opacity:1}}
+.kick{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--ink-2);margin:0}
+.kick .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--soft);border:1px solid var(--line);flex:none}
+.kick .ic svg{width:18px;height:18px}
+.p-title{font-size:clamp(26px,2vw,32px);font-weight:550;letter-spacing:-.025em;line-height:1.12;margin:14px 0 8px}
+.p-sub{font-size:16.5px;line-height:1.6;color:var(--ink-2);margin:0}
+.status{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;padding:11px 13px;border:1px solid var(--line);border-radius:12px;font-size:14.5px;color:var(--ink-2)}
+.chipst{font-size:13.5px;font-weight:500;padding:4px 10px;border-radius:999px;border:1px solid rgba(176,138,82,.45);color:var(--gold-d);background:var(--gold-l);white-space:nowrap}
+.chipst.pk{border-color:rgba(217,87,110,.4);color:var(--pink-d);background:var(--pink-l)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{text-align:left;cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;transition:border-color .2s,background .2s}
+.tile:hover{border-color:var(--line-2);background:var(--soft)}
+.tile .n{font-size:34px;font-weight:500;letter-spacing:-.03em;line-height:1}
+.tile .l{display:block;font-size:14.5px;color:var(--ink-2);margin-top:8px;line-height:1.35}
+.tile.e .n{color:var(--pink-d)} .tile.k .n,.tile.x .n{color:var(--gold-d)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tag{font-size:13.5px;font-weight:500;padding:4px 9px;border-radius:7px;border:1px solid rgba(176,138,82,.4);color:var(--gold-d);background:var(--gold-l)}
+.rows{margin:0}
+.rows > div{display:grid;grid-template-columns:118px 1fr;gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:15px}
+.rows > div:first-child{border-top:0;padding-top:0}
+.rows dt{color:var(--ink-3)} .rows dd{margin:0;line-height:1.5}
+.sec{font-size:14px;font-weight:550;color:var(--ink-2);margin:0 0 12px}
+.dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--pink);opacity:.85}
+.nav{display:flex;gap:8px}
+.nav button{flex:1;cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 13px;font-size:15px;color:var(--ink);text-align:left;min-height:48px}
+.nav button:last-child{text-align:right}
+.nav button:hover{border-color:var(--line-2)}
+.nav small{display:block;font-size:12.5px;color:var(--ink-3)}
+.close{cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13.5px;color:var(--ink-2);margin-left:auto;min-height:34px}
+.close:hover{color:var(--ink);border-color:var(--line-2)}
+.hint{font-size:13.5px;color:var(--ink-3);line-height:1.6;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{cursor:pointer;background:#fff;border:1px solid rgba(176,138,82,.38);color:var(--gold-d);border-radius:999px;padding:7px 12px;font-size:14px;font-weight:500;min-height:38px}
+.chip:hover{background:var(--gold-l)}
+
+.sheet{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:50;max-height:42vh;overflow:auto;overscroll-behavior:contain;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 60px rgba(28,27,25,.22);padding:10px 14px 14px;animation:up .35s var(--ease)}
+.sheet[hidden]{display:none}
+@keyframes up{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.grab{display:block;width:40px;height:4px;border-radius:2px;background:var(--line-2);margin:0 auto 10px}
+.sheet-in{display:flex;flex-direction:column;gap:10px}
+.sheet .card{padding:16px;border-radius:14px}
+.sheet .p-title{font-size:24px;margin:10px 0 6px}
+.sheet .p-sub{font-size:15.5px}
+.eco.m .sheet .card + .card{display:none}
+.sheet .nav button{min-height:44px;padding:7px 12px}
+.sheet .close{white-space:nowrap;padding:6px 11px}
+.sheet .kick{font-size:14px}
+.sheet .status{margin-top:12px}
+.sheet .rows > div{padding:9px 0}
+
+/* media types table */
+.media{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.media li{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);font-size:15px}
+.media .mi-ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center}
+.media .mi-ic svg{width:16px;height:16px}
+.media li.y{background:var(--gold-l);border-color:rgba(176,138,82,.4);color:var(--ink)}
+.media li.y .mi-ic{background:#fff;color:var(--gold-d)}
+.media li.y .mi-v{color:var(--gold-d);font-weight:700}
+.media li.n{color:var(--ink-3);background:#fff}
+.media li.n .mi-ic{background:var(--soft);color:#A9A49D}
+.media li.n .mi-l{text-decoration:line-through;text-decoration-color:rgba(0,0,0,.2)}
+.chip.more{background:var(--gold-l)}
+.back{cursor:pointer;align-self:flex-start;background:none;border:0;padding:6px 2px;font-size:14px;color:var(--gold-d);font-weight:550}
+.nav small{font-weight:550;color:var(--gold-d)}
+
+/* bottom metrics strip */
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.met{padding:20px 24px;border-right:1px solid var(--line);text-align:left;background:none;border-top:0;border-bottom:0;border-left:0;cursor:pointer;transition:background .2s}
+.met:last-child{border-right:0}
+.met:hover{background:var(--soft)}
+.met p{margin:0;font-size:15.5px;color:var(--ink-2);font-weight:500}
+.met b{display:block;font-size:38px;font-weight:500;letter-spacing:-.03em;margin:6px 0 10px}
+.ticks{display:flex;gap:3px;height:18px;align-items:flex-end}
+.ticks i{flex:1;max-width:10px;height:100%;border-radius:2px;background:#E4E0D9;transform-origin:bottom;transition:transform .5s var(--ease) var(--d,0s)}
+.eco.pre .ticks i{transform:scaleY(.15)}
+.met.e .ticks i{background:rgba(217,87,110,.7)}
+.met.k .ticks i{background:var(--gold)}
+.met.x .ticks i{background:rgba(176,138,82,.45)}
+.met.d .ticks i{background:rgba(176,138,82,.28);border:0}
+
+@media (min-width:1280px){
+  .panel .card{padding:16px}
+  .panel .p-title{font-size:25px;margin:10px 0 6px}
+  .panel .p-sub{font-size:15.5px}
+  .panel .tile{padding:13px}
+  .panel .tile .n{font-size:29px}
+  .panel .tile .l{font-size:14px}
+  .panel .chip{padding:6px 10px;font-size:13.5px;min-height:34px}
+}
+@media (max-width:1279px){
+  .body{grid-template-columns:minmax(0,1fr)}
+  .panel{border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;align-items:start;padding:24px;gap:14px}
+}
+@media (max-width:1023px){
+  .cc-head{grid-template-columns:1fr;align-items:start;gap:20px}
+  .cc-lede{justify-self:start}
+  .strip{grid-template-columns:1fr 1fr}
+  .met:nth-child(2){border-right:0}
+  .met:nth-child(-n+2){border-bottom:1px solid var(--line)}
+}
+@media (max-width:1099px){
+  .stage{max-width:620px}
+  .panel{grid-template-columns:1fr;padding:16px}
+}
+@media (max-width:600px){
+  .bar{padding:10px 14px}
+  .bar .pill{min-height:36px;padding:6px 12px}
+  .bar-h{font-size:16.5px}
+  .bar-r .pill.live{display:none}
+  .card{padding:18px}
+  .met{padding:16px}
+  .met b{font-size:32px}
+  .rows > div{grid-template-columns:104px 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .eco *{transition-duration:.01ms!important;transition-delay:0s!important;animation:none!important}
+}
+
+/* --- embedded in the BOLDEST site --- */
+:root{--font:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif}
+html,body{background:transparent!important;overflow:hidden}
+.cc{max-width:none!important;padding:0!important;margin:0!important}
+.cc-head{display:none!important}
+.mi-note{display:block;font-size:11px;line-height:1.3;color:var(--ink-3,#8A857E);font-weight:400;margin-top:2px}.mmedia .mi-note{display:inline;font-size:10px}
+.ticks i{box-sizing:border-box}
+</style>
+</head>
+<body>
+
+<section class="cc" aria-labelledby="cc-title">
+  <header class="cc-head">
+    <div>
+      <span class="cc-eyebrow"><i aria-hidden="true"></i>Cognitive Commerce / A 360° view</span>
+      <h2 class="cc-title" id="cc-title"><span>Every surface.</span><span>One view of your world.</span></h2>
+    </div>
+    <p class="cc-lede">Customers bounce around surfaces and behave differently on each. We connect data from all these sources to give a brand a 360° view of its world.</p>
+  </header>
+
+  <div class="eco pre" id="eco">
+    <div class="bar">
+      <div class="brand">
+        <svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="13" r="11.5" stroke="#B08A52" opacity=".45"/><circle cx="13" cy="13" r="7" stroke="#B08A52"/><circle cx="13" cy="13" r="2.6" fill="#D9576E"/></svg>
+        <h3 class="bar-h">Behavioral/Surface Experience</h3>
+      </div>
+      <div class="bar-r">
+        <span class="pill live"><i></i>17 surfaces connected</span>
+        <button type="button" class="pill btn" id="replay" aria-label="Replay animation">↻ Replay</button>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="stage" id="stage">
+        <canvas id="cv" aria-hidden="true"></canvas>
+        <svg id="viz" role="group" aria-labelledby="viz-t">
+          <desc id="viz-t">12 Brand Expression capabilities are presented on 17 surfaces. Behaviour on each surface becomes Channel Behavior, which flows into the Books of Record — CRM, SRM, ERP, OMS, Data, HR and more — across 40+ industries.</desc>
+          <defs>
+            <linearGradient id="gIn" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#B08A52" stop-opacity=".8"/><stop offset="1" stop-color="#9A958D" stop-opacity=".7"/></linearGradient>
+            <linearGradient id="gOut" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#D9576E" stop-opacity=".8"/><stop offset="1" stop-color="#B08A52" stop-opacity=".7"/></linearGradient>
+          </defs>
+        </svg>
+        <div class="mflow" id="mflow"></div>
+      </div>
+      <aside class="panel" id="panel" tabindex="-1" aria-label="Details"><div class="p-in" id="pin"></div></aside>
+    </div>
+
+    <div class="strip" id="strip"></div>
+    <div class="sheet" id="sheet" role="dialog" aria-label="Details" hidden><span class="grab" aria-hidden="true"></span><div class="sheet-in" id="sheetIn"></div></div>
+    <p class="sr-only" id="sr" aria-live="polite"></p>
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ============ DATA ============ */
+  const coreSystems = [
+    { id: 'crm', label: 'CRM', name: 'Customer Relationship Management' },
+    { id: 'srm', label: 'SRM', name: 'Supplier Relationship Management' },
+    { id: 'erp', label: 'ERP', name: 'Enterprise Resource Planning' },
+    { id: 'oms', label: 'OMS', name: 'Order Management System' },
+    { id: 'data', label: 'DATA', name: 'Data' },
+    { id: 'hr', label: 'HR', name: 'Human Resources' }
+  ];
+  const ICON = {
+    web: 'M8 1.5a6.5 6.5 0 1 0 0 13a6.5 6.5 0 1 0 0-13M1.5 8h13M8 1.5c2.2 2 2.2 11 0 13M8 1.5c-2.2 2-2.2 11 0 13',
+    mobile: 'M5 1.5h6a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1M7 12.3h2',
+    social: 'M1.5 2.5h9v6H5.5l-4 3zM10.5 5.5h4v6l-2.5-2h-4.5',
+    voice: 'M6 3a2 2 0 0 1 4 0v4.5a2 2 0 0 1-4 0zM3.5 7a4.5 4.5 0 0 0 9 0M8 11.5v3',
+    physical: 'M2 6.5l1.5-4h9l1.5 4zM3 6.5v7h10v-7M6.5 13.5v-4h3v4',
+    event: 'M2.5 3.5h11v10h-11zM2.5 6.5h11M5.5 2v3M10.5 2v3',
+    print: 'M4 6V1.5h8V6M4 12H2.5V6h11v6H12M4 9.5h8v5H4z',
+    broadcast: 'M1.5 3.5h13v8h-13zM5.5 14h5M8 11.5V14',
+    human: 'M8 1.8a2.6 2.6 0 1 1 0 5.2a2.6 2.6 0 1 1 0-5.2M3 14.2c0-3 2.2-5 5-5s5 2 5 5',
+    radio: 'M2.5 6h11v8h-11zM4 6l8-4M10.5 8.6a1.4 1.4 0 1 1 0 2.8a1.4 1.4 0 1 1 0-2.8M4.5 9h3M4.5 11h3',
+    displays: 'M4.5 1.5h7v10h-7zM8 11.5v3M5.5 14.5h5',
+    gaming: 'M4 5h8a3 3 0 0 1 0 6c-1 0-1.6-.6-2-1H6c-.4.4-1 1-2 1a3 3 0 0 1 0-6M4.8 7v2M3.8 8h2M10.8 7.6h.01M12 8.6h.01',
+    packaging: 'M8 1.5l6 3v7l-6 3-6-3v-7zM2 4.5l6 3 6-3M8 7.5v7',
+    iot: 'M5 5h6v6H5zM6.5 2v3M9.5 2v3M6.5 11v3M9.5 11v3M2 6.5h3M2 9.5h3M11 6.5h3M11 9.5h3',
+    metaverse: 'M1.5 5h13v5.5h-4l-2.5-2-2.5 2h-4z',
+    mail: 'M1.5 3.5h13v9h-13zM1.5 3.5l6.5 5 6.5-5',
+    chat: 'M2 2.5h12v8.5H7.5L4.5 13.8V11H2zM5 6.8h.01M8 6.8h.01M11 6.8h.01'
+  };
+  const customerSurfaces = [
+    ['web','Web','Websites and web experiences where customers browse, compare and buy.'],
+    ['mobile','Mobile','Apps and mobile web — the surface customers carry with them.'],
+    ['social','Social','Social platforms where customers discover, share and talk about brands.'],
+    ['voice','Voice','Voice assistants and spoken interactions.'],
+    ['physical','Physical','Stores, branches and other physical spaces.'],
+    ['event','Event','Live events where a brand meets its customers in person.'],
+    ['print','Print','Printed media and materials.'],
+    ['broadcast','Broadcast','Television and other broadcast media.'],
+    ['human','Human','People-to-people moments: sales, service and support conversations.'],
+    ['radio','Radio','Radio and audio channels.'],
+    ['displays','Displays','Digital and out-of-home displays.'],
+    ['gaming','Gaming','Games and gaming platforms.'],
+    ['packaging','Packaging','The product packaging itself, as a point of contact.'],
+    ['iot','IoT','Connected devices and objects.'],
+    ['metaverse','Metaverse','Immersive virtual worlds and spaces.'],
+    ['mail','Mail','Direct mail and email sent to customers.'],
+    ['chat','Chat','Live chat, messaging apps and conversational assistants where customers ask, get help and buy.']
+  ].map(([id, label, desc]) => ({ id, label, desc }));
+  const intelligenceCapabilities = [
+    ['research','Research','Understanding markets, customers and context.'],
+    ['discovery','Discovery','Uncovering opportunities and what matters most to customers.'],
+    ['first-party','1st/2nd/3rd Party Data','Data a brand collects directly from its own customers (1st party), shares with trusted partners (2nd party), or sources from external providers (3rd party).'],
+    ['segmentation','Segmentation','Grouping customers by shared needs and behaviours.'],
+    ['personas','Personas','Representative profiles that bring segments to life.'],
+    ['journeys','Journeys','Mapping how customers move between surfaces over time.'],
+    ['uxui','UX/UI','Designing the experiences and interfaces customers use.'],
+    ['content','Content','Creating the words, images and media that fill each surface.'],
+    ['personalise','Personalise','Tailoring experiences to the individual customer.'],
+    ['test','Test','Experimenting to learn what works.'],
+    ['curate','Curate','Selecting and arranging the right products and content.'],
+    ['advocacy','Advocacy','Turning customers into active supporters of the brand.']
+  ].map(([id, label, desc]) => ({ id, label, desc }));
+  const operatingDomains = [
+    ['outside','OUTSIDE+','The outermost domain: the world beyond the enterprise — markets, partners and customers.'],
+    ['front','FRONT+','Front-office operations: the customer-facing side of the business.'],
+    ['middle','MIDDLE+','Middle-office operations that connect the front office to the back.'],
+    ['back-office','BACK OFFICE+','Back-office operations: the processes that run the business.'],
+    ['assurance','ASSURANCE+','Assurance across operations — quality, risk and service.'],
+    ['cloud-infra','CLOUD/INFRA+','Cloud and infrastructure: the technical foundation everything runs on.']
+  ].map(([id, label, desc]) => ({ id, label, desc }));
+  /* Media types each surface can carry (renamed from "presence"): Text, Photos, Video, Audio, CGI */
+  const MEDIA = [
+    ['text', 'Text', 'M3 4h10M3 8h10M3 12h6'],
+    ['photos', 'Photos', 'M2 3.5h12v9H2zM2 10.5l3.5-3 3 2.5 2-1.5 3.5 3M10.5 6.3h.01'],
+    ['video', 'Video', 'M2 4h8.5v8H2zM10.5 7l3.5-2v6l-3.5-2'],
+    ['audio', 'Audio', 'M2 6h2.5L8 3v10L4.5 10H2zM10.5 5.5a3.5 3.5 0 0 1 0 5M12.3 3.8a6 6 0 0 1 0 8.4'],
+    ['cgi', 'CGI', 'M8 1.5l6 3.2v6.6L8 14.5l-6-3.2V4.7zM2 4.7l6 3.3 6-3.3M8 8v6.5']
+  ].map(([id, label, d]) => ({ id, label, d }));
+  const ALL_MEDIA = ['text', 'photos', 'video', 'audio', 'cgi'];
+  const MEDIA_NOTES = { displays: { audio: 'Digital displays only, not OOH' } };
+  const SURFACE_MEDIA = {
+    web: ALL_MEDIA, mobile: ALL_MEDIA, social: ALL_MEDIA, physical: ALL_MEDIA, event: ALL_MEDIA, broadcast: ALL_MEDIA,
+    gaming: ALL_MEDIA, iot: ALL_MEDIA, metaverse: ALL_MEDIA, chat: ALL_MEDIA,
+    voice: ['audio'], radio: ['audio'],
+    print: ['text', 'photos'], packaging: ['text', 'photos'],
+    human: ['text', 'photos', 'video', 'audio'],
+    displays: ['text', 'photos', 'video', 'audio', 'cgi'],
+    mail: ['text', 'photos']
+  };
+  /* Industries (replaces the "Operating domains" label) — final copy to come from Dilip */
+  const industries = [
+    ['manufacturing', 'Manufacturing', 'Connect product, plant and dealer data to real demand — so what you make, and how you sell it, follows the customer.'],
+    ['distribution', 'Distribution', 'Unify orders, inventory and account behaviour across channels to serve every reseller and buyer with the right offer at the right moment.'],
+    ['retail', 'Retail', 'One view of every shopper across store, web, app and social — turning browsing behaviour into personalised, profitable experiences.'],
+    ['cpg', 'CPG', 'Reach shoppers directly and through retail partners, using 1st, 2nd and 3rd party signals to shape brand, pack and promotion.'],
+    ['education', 'Education', 'Engage prospective students, learners and families across every touchpoint — from first enquiry to enrolment, learning and alumni.'],
+    ['technology', 'Technology', 'Turn product usage, trials and community activity into a single customer view that drives adoption, expansion and loyalty.'],
+    ['professional-services', 'Professional Services', 'Bring client relationships, expertise and engagement data together to deliver timely, relevant advice and grow lasting accounts.'],
+    ['healthcare', 'Healthcare', 'Coordinate patient and member engagement across channels, with the right information at each step of the care journey.'],
+    ['financial-services', 'Financial Services', 'Understand customers across branch, app and adviser to personalise products, service and financial guidance.'],
+    ['telecom', 'Telecommunications', 'Connect plan, device and service data with customer behaviour to reduce churn and grow lifetime value.'],
+    ['travel', 'Travel & Hospitality', 'Follow travellers from inspiration to booking, stay and return — personalising every moment of the journey.'],
+    ['automotive', 'Automotive', 'Link vehicle, dealer and owner data to guide buyers from research to purchase, service and their next vehicle.'],
+    ['energy', 'Energy & Utilities', 'Engage customers on usage, billing and service across every channel, and support the move to new energy products.'],
+    ['media', 'Media & Entertainment', 'Understand audiences across platforms to programme, personalise and monetise content more effectively.'],
+    ['public-sector', 'Public Sector', 'Deliver joined-up citizen services across digital and in-person channels, built on one view of every interaction.']
+  ].map(([id, label, desc], i) => ({ id, label, desc, idx: i }));
+  const NI = '40+';
+  const INDUSTRIES_ALL = { label: `${NI} Industries`, desc: 'The same connected model — Brand Expression, Brand Experience, Channel Behavior and Books of Record — applies across industries, including:' };
+  const NS_ = customerSurfaces.length, NC = intelligenceCapabilities.length, NK = coreSystems.length, ND = operatingDomains.length;
+
+  /* ============ SETUP ============ */
+  const eco = document.getElementById('eco'), stage = document.getElementById('stage'), svg = document.getElementById('viz');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mq = matchMedia('(max-width: 1099px)');
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (t, a, p) => { const n = document.createElementNS(NS, t); for (const k in a) if (a[k] != null) n.setAttribute(k, a[k]); if (p) p.appendChild(n); return n; };
+  const tx = (a, s, p) => { const t = el('text', a, p); t.textContent = s; return t; };
+  const f = n => Math.round(n * 100) / 100;
+  const pad = (n, w) => String(n).padStart(w || 2, '0');
+
+  
+  let G = {}, mobile = false, items = {}, layer = null;
+  const SURF_T = 'Brand Experience';
+
+  function polc(cx, cy, r, a) { const t = a * Math.PI / 180; return { x: cx + r * Math.cos(t), y: cy + r * Math.sin(t) }; }
+
+  /* Build the chart.
+     Desktop (left → right): Brand Expression → Presented on 17 surfaces → Brand Experience → Channel Behavior → Books of Record.
+     Mobile: the same flow stacked top to bottom. */
+  function build() {
+    mobile = mq.matches;
+    eco.classList.toggle('m', mobile);
+    if (layer) layer.remove();
+    layer = el('g', {}, svg);
+    items = {};
+    document.getElementById('mflow').innerHTML = '';
+    if (mobile) { buildMobile(); return; }
+    stopAuto();
+    G = mobile ? {
+      W: 500, H: 1252, CY: 0, GAP: 24,
+      hub: { x: 250, y: 424, disc: 62, r0: 72, st: 5 },
+      ch:  { x: 128, y: 1120, disc: 52, r0: 60, st: 5 },
+      bor: { x: 382, y: 1120, disc: 70, r0: 80, st: 5 }
+    } : {
+      W: 1620, H: 900, CY: 466, PX: 792, OX: 1000, GAP: 36,
+      hub: { x: 584, y: 466, disc: 86, r0: 98, st: 8 },
+      ch:  { x: 1169, y: 466, disc: 62, r0: 72, st: 5 },
+      bor: { x: 1458, y: 466, disc: 90, r0: 102, st: 8 }
+    };
+    [G.hub, G.ch, G.bor].forEach(c => { c.edge = c.r0 + c.st * 5 + 4; });
+    svg.setAttribute('viewBox', `0 0 ${G.W} ${G.H}`);
+    stage.style.aspectRatio = `${G.W} / ${G.H}`;
+
+    const gWire = el('g', {}, layer), gRing = el('g', {}, layer), gCore = el('g', {}, layer), gRows = el('g', {}, layer), gCaps = el('g', {}, layer);
+    G.gWire = gWire;
+    const H = G.hub, C = G.ch, B = G.bor;
+
+    /* ---- rings: decorative on the hub and Channel Behavior, operating domains on Books of Record ---- */
+    [H, C].forEach((c, ci) => { for (let k = 0; k < 6; k++) el('circle', { cx: c.x, cy: c.y, r: c.r0 + c.st * k, class: 'ring deco rv', style: `--d:${f(.4 + ci * .5 + k * .04)}s` }, gRing); });
+    operatingDomains.forEach((d, i) => {
+      const r = B.r0 + B.st * (ND - 1 - i);
+      d.ring = el('circle', { cx: B.x, cy: B.y, r, class: 'ring rv', style: `--d:${f(1.3 + i * .05)}s` }, gRing);
+      const w = mobile ? 150 : 160, h = mobile ? 26 : 28;
+      d.bg = el('rect', { x: B.x - w / 2, y: B.y + r - h / 2, width: w, height: h, rx: h / 2, class: 'ring-bg' }, gRing);
+      d.lab = tx({ x: B.x, y: B.y + r, dy: '.35em', 'text-anchor': 'middle', class: 'ring-lab' }, d.label, gRing);
+      d.idx = i;
+    });
+
+    /* ---- the three circles ---- */
+    function disc(c, key, label, delay, data) {
+      const g = el('g', { class: 'core rv', role: 'button', tabindex: 0, 'data-k': key, 'aria-label': label, 'aria-pressed': 'false', style: `--d:${delay}s` }, gCore);
+      el('circle', { cx: c.x, cy: c.y, r: c.disc + 4, class: 'hit' }, g);
+      el('circle', { cx: c.x, cy: c.y, r: c.disc + 6, class: 'core-ring' }, g);
+      el('circle', { cx: c.x, cy: c.y, r: c.disc, class: 'core-disc' }, g);
+      items[key] = { type: key.split(':')[0], el: g, data };
+      return g;
+    }
+    const hubG = disc(H, 'hub:hub', `Presented on ${NS_} surfaces`, .3, { label: `Presented on ${NS_} surfaces`, desc: `Brand Expression is presented across ${NS_} surfaces — every place a customer meets the brand.` });
+    tx({ x: H.x, y: H.y - (mobile ? 6 : 8), 'text-anchor': 'middle', class: 'hub-a' }, 'Presented on', hubG);
+    tx({ x: H.x, y: H.y + (mobile ? 20 : 22), 'text-anchor': 'middle', class: 'hub-b' }, `${NS_} surfaces`, hubG);
+
+    const chG = disc(C, 'channel:channel', 'Channel Behavior', 1.0, { label: 'Channel Behavior', desc: 'Customers behave differently on each surface. That behaviour is captured channel by channel and flows into the Books of Record.' });
+    tx({ x: C.x, y: C.y - 3, 'text-anchor': 'middle', class: 'hub-c' }, 'Channel', chG);
+    tx({ x: C.x, y: C.y + (mobile ? 18 : 19), 'text-anchor': 'middle', class: 'hub-c' }, 'Behavior', chG);
+
+    const coreG = disc(B, 'core:core', 'Books of Record: CRM, SRM, ERP, OMS, Data, HR and more', 1.2, { label: 'Books of Record', desc: 'The shared data foundation at the end of the flow. Channel Behavior from every surface lands here, giving the brand a 360° view.' });
+    const dx = mobile ? 29 : 34, ys = mobile ? [-16, 5, 26] : [-17, 9, 35];
+    coreSystems.forEach((sy, i) => tx({ x: B.x + (i % 2 ? dx : -dx), y: B.y + ys[i >> 1], 'text-anchor': 'middle', class: 'core-s' }, sy.label, coreG));
+    tx({ x: B.x, y: B.y - (mobile ? 38 : 45), 'text-anchor': 'middle', class: 'core-t' }, `${NK}+ SYSTEMS`, coreG);
+    // ••• under DATA and HR — there can be more systems
+    [-1, 0, 1].forEach(k => el('circle', { cx: B.x + k * (mobile ? 11 : 14), cy: B.y + (mobile ? 44 : 53), r: mobile ? 3 : 3, class: 'more' }, coreG));
+
+    /* ---- link: Channel Behavior → Books of Record ---- */
+    G.link = el('path', { d: `M${C.x + C.edge} ${C.y}L${B.x - B.edge} ${B.y}`, pathLength: 1, class: 'wire link', style: '--d:1.25s' }, gWire);
+
+    if (!mobile) {
+      /* ---- Brand Expression: evenly spaced rows on a curve that matches the surfaces list height → hub ---- */
+      const step = 42, yTop = G.CY - step * (NS_ - 1) / 2, yBot = G.CY + step * (NS_ - 1) / 2;
+      const RX = 262, RY = 400;
+      const nodeAt = i => { const y = yTop + i * (yBot - yTop) / (NC - 1), dy = (y - H.y) / RY; return { x: H.x - RX * Math.sqrt(1 - dy * dy), y }; };
+      const nTop = nodeAt(0), nBot = nodeAt(NC - 1);
+      el('path', { d: `M${f(nTop.x)} ${f(nTop.y - 14)}A${RX} ${RY} 0 0 0 ${f(nBot.x)} ${f(nBot.y + 14)}`, class: 'arc rv', style: '--d:.2s' }, gCaps);
+      title(f(nTop.x + 6), f(yTop - 19 - G.GAP), 'end', 'Brand Expression', 'e');
+      intelligenceCapabilities.forEach((c, i) => {
+        const n = nodeAt(i), a = Math.atan2(n.y - H.y, n.x - H.x) * 180 / Math.PI;
+        const a2 = (a < 0 ? a + 360 : a), s0 = polc(H.x, H.y, H.edge, 180 + (a2 - 180) * .35);
+        c.fan = el('path', { d: `M${f(n.x)} ${f(n.y)}C${f(n.x + 80)} ${f(n.y)} ${f(s0.x - 70)} ${f(s0.y)} ${f(s0.x)} ${f(s0.y)}`, pathLength: 1, class: 'fan', style: `--d:${f(.15 + i * .035)}s` }, gWire);
+        const g = capGroup(c, i, gCaps);
+        const bw = 70 + c.label.length * 14;
+        el('rect', { x: n.x - bw + 16, y: n.y - 19, width: bw, height: 38, rx: 9, class: 'bgr' }, g);
+        el('rect', { x: n.x - bw + 16, y: n.y - 19, width: bw, height: 38, class: 'hit' }, g);
+        el('circle', { cx: n.x, cy: n.y, r: 6, class: 'cnode' }, g);
+        tx({ x: n.x - 18, y: n.y, dy: '.35em', 'text-anchor': 'end', class: 'clab' }, c.label, g);
+      });
+
+      /* ---- hub → surfaces → Channel Behavior ---- */
+      const PX = G.PX, OX = G.OX, y0 = yTop;
+      title(PX - 6, y0 - 19 - G.GAP, 'start', SURF_T, 'x');
+      customerSurfaces.forEach((s, i) => {
+        const y = y0 + i * step, ex = H.x + H.edge, ey = H.y + (y - H.y) * .11;
+        s.wire = el('path', { d: `M${f(ex)} ${f(ey)}C${f(ex + 120)} ${f(H.y + (y - H.y) * .2)} ${PX - 95} ${f(y)} ${PX} ${f(y)}`, pathLength: 1, class: 'wire', style: `--d:${f(.55 + i * .03)}s` }, gWire);
+        const cx = C.x - C.edge, cy = C.y + (y - C.y) * .1;
+        s.wire2 = el('path', { d: `M${OX} ${f(y)}C${OX + 75} ${f(y)} ${f(cx - 60)} ${f(C.y + (y - C.y) * .18)} ${f(cx)} ${f(cy)}`, pathLength: 1, class: 'wire', style: `--d:${f(.9 + i * .03)}s` }, gWire);
+        const g = rowGroup(s, i, gRows);
+        el('rect', { x: PX - 12, y: y - 19, width: OX - PX + 24, height: 38, rx: 9, class: 'bgr' }, g);
+        el('rect', { x: PX - 12, y: y - 19, width: OX - PX + 24, height: 38, class: 'hit' }, g);
+        el('circle', { cx: PX, cy: y, r: 5, class: 'port' }, g);
+        el('circle', { cx: OX, cy: y, r: 5, class: 'port' }, g);
+        el('path', { d: ICON[s.id], class: 'ico', transform: `translate(${PX + 16} ${f(y - 11)}) scale(1.375)` }, g);
+        tx({ x: PX + 52, y, dy: '.35em', class: 'lab' }, s.label, g);
+      });
+      title(B.x, B.y - B.edge - G.GAP + 6, 'middle', 'Books of Record', 'k');
+    } else {
+      const bx = H.x, rad = 8, hubTop = H.y - H.edge, hubBot = H.y + H.edge;
+      /* ---- Brand Expression (2 columns) → hub ---- */
+      title(10, 84 - 19 - G.GAP, 'start', 'Brand Expression', 'e');
+      const rowsC = Math.ceil(NC / 2);
+      intelligenceCapabilities.forEach((c, i) => {
+        const col = i < rowsC ? 0 : 1, y = 84 + (i % rowsC) * 40, px = col ? 262 : 238;
+        c.fan = el('path', { d: `M${px} ${y}H${col ? bx + rad : bx - rad}Q${bx} ${y} ${bx} ${y + rad}V${hubTop}`, pathLength: 1, class: 'fan', style: `--d:${f(.15 + i * .035)}s` }, gWire);
+        const g = capGroup(c, i, gCaps), rx = col ? 254 : 2;
+        el('rect', { x: rx, y: y - 19, width: 244, height: 38, rx: 9, class: 'bgr' }, g);
+        el('rect', { x: rx, y: y - 19, width: 244, height: 38, class: 'hit' }, g);
+        el('circle', { cx: px, cy: y, r: 5.5, class: 'cnode' }, g);
+        tx({ x: col ? 278 : 12, y, dy: '.35em', class: 'clab' }, c.label, g);
+      });
+      /* ---- hub → surfaces (2 columns) → Channel Behavior ---- */
+      const y0 = hubBot + 92, rowsS = Math.ceil(NS_ / 2), yEnd = y0 + (rowsS - 1) * 40;
+      title(10, y0 - 19 - G.GAP, 'start', SURF_T, 'x');
+      const chTop = C.y - C.edge, turn = yEnd + 34;
+      customerSurfaces.forEach((s, i) => {
+        const col = i < rowsS ? 0 : 1, y = y0 + (i % rowsS) * 40, px = col ? 262 : 238;
+        s.wire = el('path', { d: `M${bx} ${hubBot}V${y - rad}Q${bx} ${y} ${col ? bx + rad : bx - rad} ${y}H${px}`, pathLength: 1, class: 'wire', style: `--d:${f(.55 + i * .03)}s` }, gWire);
+        s.wire2 = el('path', { d: `M${px} ${y}H${col ? bx + rad : bx - rad}Q${bx} ${y} ${bx} ${y + rad}V${turn}C${bx} ${turn + 40} ${C.x} ${chTop - 40} ${C.x} ${chTop}`, pathLength: 1, class: 'wire', style: `--d:${f(.9 + i * .03)}s` }, gWire);
+        const g = rowGroup(s, i, gRows), rx = col ? 254 : 2;
+        el('rect', { x: rx, y: y - 19, width: 244, height: 38, rx: 9, class: 'bgr' }, g);
+        el('rect', { x: rx, y: y - 19, width: 244, height: 38, class: 'hit' }, g);
+        el('circle', { cx: px, cy: y, r: 5, class: 'port' }, g);
+        el('path', { d: ICON[s.id], class: 'ico', transform: `translate(${col ? 276 : 12} ${y - 10.5}) scale(1.3)` }, g);
+        tx({ x: col ? 308 : 44, y, dy: '.35em', class: 'lab' }, s.label, g);
+      });
+      title(B.x, B.y - B.edge - 16, 'middle', 'Books of Record', 'k');
+    }
+
+    customerSurfaces.forEach(s => { s.pts = sample(s.wire); s.pts2 = sample(s.wire2); });
+    intelligenceCapabilities.forEach(c => { c.pts = sample(c.fan); });
+    G.linkPts = sample(G.link);
+    registerIndustries();
+  }
+  /* ===== Mobile: four stacked boxes — every item visible and tappable, details open in place ===== */
+  const stageOf = {}; let mStage = 0, measuring = false;
+  function setStage() {} function startAuto() {} function stopAuto() {} function placeRail() {}
+  const slotOf = { capability: 'e', hub: 'x', surface: 'x', channel: 'c', core: 'k', system: 'k', industry: 'k', industries: 'k' };
+
+  function buildMobile() {
+    const mf = document.getElementById('mflow');
+    const icon = id => `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="${ICON[id]}"/></svg>`;
+    mf.innerHTML = `
+      <section class="mb e">
+        <div class="mb-h"><span class="dot"></span><h4>Brand Expression</h4></div>
+        <div class="mchips">${intelligenceCapabilities.map(c => `<button type="button" class="mchip e" data-k="capability:${c.id}" aria-pressed="false">${c.label}</button>`).join('')}</div>
+        <div class="mdet" id="md-e" aria-live="polite"></div>
+      </section>
+      <div class="mc"><button type="button" class="mlab" data-k="hub:hub" aria-pressed="false">presented on <b>${NS_} surfaces</b></button></div>
+      <section class="mb x">
+        <div class="mb-h"><span class="dot"></span><h4>Brand Experience</h4></div>
+        <div class="mgrid">${customerSurfaces.map(x => `<button type="button" class="mchip x" data-k="surface:${x.id}" aria-pressed="false">${icon(x.id)}<span>${x.label}</span></button>`).join('')}</div>
+        <div class="mdet" id="md-x" aria-live="polite"></div>
+      </section>
+      <div class="mc ch"><button type="button" class="mlab" data-k="channel:channel" aria-pressed="false">behaviour captured as <b>Channel Behavior</b></button></div>
+      <div class="mdet" id="md-c" aria-live="polite"></div>
+      <section class="mb k">
+        <button type="button" class="mb-h" data-k="core:core" aria-pressed="false"><span class="dot"></span><h4>Books of Record</h4><span class="info" aria-hidden="true">i</span></button>
+        <div class="msys">${coreSystems.map(c => `<button type="button" class="mchip k" data-k="system:${c.id}" aria-pressed="false">${c.label}</button>`).join('')}<button type="button" class="mchip k" data-k="system:more" aria-pressed="false" aria-label="And more">•••</button></div>
+        <p class="msub">Industries <b>${NI}</b></p>
+        <div class="mchips mdoms">${industries.slice(0, 7).map(d => `<button type="button" class="mchip d" data-k="industry:${d.id}" aria-pressed="false">${d.label}</button>`).join('')}<button type="button" class="mchip d more" data-k="industries:all" aria-pressed="false">+${industries.length - 7} more</button></div>
+        <div class="mdet" id="md-k" aria-live="polite"></div>
+      </section>
+      <p class="mhint">Tap any item to see what it means.</p>`;
+    const q = k => mf.querySelector(`[data-k="${k}"]`);
+    intelligenceCapabilities.forEach((c, i) => { c.el = q('capability:' + c.id); c.idx = i; items['capability:' + c.id] = { type: 'capability', data: c, el: c.el }; });
+    customerSurfaces.forEach((x, i) => { x.el = q('surface:' + x.id); x.idx = i; items['surface:' + x.id] = { type: 'surface', data: x, el: x.el }; });
+    registerIndustries(q);
+    coreSystems.forEach(c => { items['system:' + c.id] = { type: 'system', el: q('system:' + c.id), data: { label: `${c.label} · ${c.name}`, desc: `${c.name} — one of the Books of Record that Channel Behavior flows into.` } }; });
+    items['system:more'] = { type: 'system', el: q('system:more'), data: { label: 'And more', desc: 'Books of Record are not limited to these six — any other system of record a brand runs can be connected.' } };
+    items['hub:hub'] = { type: 'hub', el: q('hub:hub'), data: { label: `Presented on ${NS_} surfaces`, desc: `Every Brand Expression capability can show up on any of the ${NS_} surfaces — every place a customer meets the brand.` } };
+    items['channel:channel'] = { type: 'channel', el: q('channel:channel'), data: { label: 'Channel Behavior', desc: 'Customers behave differently on each surface. That behaviour is captured channel by channel and flows into the Books of Record.' } };
+    items['core:core'] = { type: 'core', el: q('core:core'), data: { label: 'Books of Record', desc: 'The shared data foundation at the end of the flow — CRM, SRM, ERP, OMS, Data, HR and more — giving the brand a 360° view.' } };
+  }
+  function mDetail() {
+    const mf = document.getElementById('mflow'); if (!mf) return;
+    mf.querySelectorAll('.mdet').forEach(d => { d.innerHTML = ''; });
+    const k = state.pin, it = k && items[k]; if (!it) return;
+    const box = document.getElementById('md-' + slotOf[it.type]); if (!box) return;
+    const d = it.data, list = it.type === 'surface' ? customerSurfaces : it.type === 'capability' ? intelligenceCapabilities : it.type === 'industry' ? industries : null;
+    let extra = '';
+    if (it.type === 'surface') { const has = SURFACE_MEDIA[d.id] || []; extra = `<p class="mmh">Media types</p><div class="mmedia">${MEDIA.map(m => `<span class="${has.includes(m.id) ? 'y' : 'n'}">${mediaIco(m.d)}${m.label}${(MEDIA_NOTES[d.id]||{})[m.id] ? `<small class="mi-note"> · ${MEDIA_NOTES[d.id][m.id]}</small>` : ''}</span>`).join('')}</div>`; }
+    else if (it.type === 'industries') extra = `<div class="mchips mdoms" style="margin-top:8px">${industries.map(x => `<button type="button" class="mchip d" data-k="industry:${x.id}">${x.label}</button>`).join('')}</div>`;
+    let nav = '';
+    if (list) { const n = list.length, p = list[(d.idx - 1 + n) % n], nx = list[(d.idx + 1) % n]; nav = `<div class="mnv"><button type="button" data-k="${it.type}:${p.id}">← ${p.label}</button><button type="button" data-k="${it.type}:${nx.id}">${nx.label} →</button></div>`; }
+    box.innerHTML = `<div class="hd"><b>${d.label}</b><button type="button" class="x" data-close aria-label="Close details">✕</button></div><p>${d.desc}</p>${extra}${nav}`;
+    requestAnimationFrame(() => {
+      const r = box.getBoundingClientRect(), over = r.bottom - (window.innerHeight - 12);
+      if (over > 0) window.scrollBy({ top: over, behavior: reduced ? 'auto' : 'smooth' });
+    });
+  }
+  function title(x, y, anchor, name, cls) {
+    return tx({ x, y, 'text-anchor': anchor, class: 'ttl rv ' + cls, style: '--d:.05s' }, name, layer);
+  }
+  function registerIndustries(pick) {
+    industries.forEach(x => { items['industry:' + x.id] = { type: 'industry', data: x, el: (pick && pick('industry:' + x.id)) || document.createElement('span') }; });
+    items['industries:all'] = { type: 'industries', data: INDUSTRIES_ALL, el: (pick && pick('industries:all')) || document.createElement('span') };
+  }
+  function rowGroup(s, i, parent) {
+    const key = 'surface:' + s.id;
+    const g = el('g', { class: 'row rv', role: 'button', tabindex: 0, 'data-k': key, 'aria-label': `${s.label}, surface ${i + 1} of ${NS_}`, 'aria-pressed': 'false', style: `--d:${f(.5 + i * .035)}s` }, parent);
+    s.el = g; s.idx = i; items[key] = { type: 'surface', data: s, el: g };
+    return g;
+  }
+  function capGroup(c, i, parent) {
+    const key = 'capability:' + c.id;
+    const g = el('g', { class: 'cap rv', role: 'button', tabindex: 0, 'data-k': key, 'aria-label': `${c.label}, Brand Expression capability ${i + 1} of ${NC}`, 'aria-pressed': 'false', style: `--d:${f(i * .04)}s` }, parent);
+    c.el = g; c.idx = i; items[key] = { type: 'capability', data: c, el: g };
+    return g;
+  }
+  function sample(path) { const L = path.getTotalLength(), pts = []; for (let i = 0; i <= 60; i++) { const p = path.getPointAtLength(L * i / 60); pts.push([p.x, p.y]); } return pts; }
+  const at = (pts, t) => { const x = t * 60, i = Math.min(59, Math.floor(x)), u = x - i, a = pts[i], b = pts[i + 1]; return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u]; };
+
+  /* ============ CANVAS: dotted rings around each circle + signals flowing left → right ============ */
+  const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+  function size() {
+    if (mobile) { placeRail(); return; }
+    const r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+    const scale = Math.min(r.width / G.W, r.height / G.H);
+    const ox = (r.width - G.W * scale) / 2, oy = (r.height - G.H * scale) / 2;
+    ctx.setTransform(dpr * scale, 0, 0, dpr * scale, dpr * ox, dpr * oy);
+    draw(performance.now(), 0);
+  }
+  const field = [];
+  for (let k = 0; k < 2; k++) {
+    const n = 88 + k * 6;
+    for (let j = 0; j < n; j++) field.push({ k, a: j / n * Math.PI * 2, w: (k % 2 ? 1 : -1) * (.00008 + k * .000012), pk: (j * 7 + k * 3) % 13 === 0 });
+  }
+  const parts = [];
+  let intro = reduced ? 1 : 0, introStart = 0, glow = { hub: 0, ch: 0, bor: 0 }, focus = null;
+  const easeIO = p => p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+
+  function draw(now, dt) {
+    ctx.clearRect(-500, -500, 4000, 4000);
+    const grow = easeIO(Math.min(1, intro * 1.4));
+    ['hub', 'ch', 'bor'].forEach(name => {
+      const c = G[name], gl = glow[name];
+      const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, c.disc * 1.7);
+      g.addColorStop(0, `rgba(232,212,178,${.4 + gl * .3})`); g.addColorStop(1, 'rgba(232,212,178,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(c.x, c.y, c.disc * 1.7, 0, Math.PI * 2); ctx.fill();
+      for (const p of field) {
+        const r = (c.disc + 5 + p.k * 5) * grow, x = c.x + r * Math.cos(p.a), y = c.y + r * Math.sin(p.a);
+        ctx.fillStyle = p.pk ? `rgba(217,87,110,${.8 * grow})` : `rgba(176,138,82,${.8 * grow})`;
+        ctx.beginPath(); ctx.arc(x, y, mobile ? 1.6 : 1.4, 0, Math.PI * 2); ctx.fill();
+      }
+    });
+    if (dt) for (const p of field) p.a += p.w * dt * (1 + glow.bor * 2);
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const q = parts[i];
+      if (dt) q.t += dt / q.dur;
+      if (q.t >= 1) { parts.splice(i, 1); if (q.end) q.end(); continue; }
+      const e = easeIO(q.t), rr = mobile ? 1.5 : 1;
+      for (let k = 0; k < 7; k++) {
+        const [x, y] = at(q.pts, Math.max(0, e - k * .018));
+        ctx.fillStyle = q.pink ? `rgba(217,87,110,${(1 - k / 7) * .95})` : `rgba(176,138,82,${(1 - k / 7) * .95})`;
+        ctx.beginPath(); ctx.arc(x, y, ((k ? 2.1 : 2.9) - k * .16) * rr, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    if (dt) for (const k in glow) glow[k] = Math.max(0, glow[k] - dt * .0012);
+  }
+
+  /* each signal travels the whole story: capability → hub → surface → Channel Behavior → Books of Record */
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  function toLink() { glow.ch = Math.min(1, glow.ch + .25); parts.push({ pts: G.linkPts, t: 0, dur: 700, end: () => { glow.bor = Math.min(1, glow.bor + .25); } }); }
+  function toSurface(s) {
+    glow.hub = Math.min(1, glow.hub + .2);
+    parts.push({ pts: s.pts, t: 0, dur: 1100 + Math.random() * 400, end: () => parts.push({ pts: s.pts2, t: 0, dur: 1000 + Math.random() * 300, end: () => { if (Math.random() < .45) toLink(); else glow.ch = Math.min(1, glow.ch + .25); } }) });
+  }
+  let raf = 0, last = 0, visible = false, spawnIn = 0, spawnOut = 0;
+  function loop(now) {
+    raf = 0;
+    if (mobile) return;
+    const dt = last ? Math.min(50, now - last) : 16; last = now;
+    if (introStart) { intro = Math.min(1, (now - introStart) / 1600); if (intro >= 1) introStart = 0; }
+    if (intro > .7 && parts.length < 60) {
+      spawnIn -= dt; spawnOut -= dt;
+      if (spawnOut <= 0) {
+        const c = focus && focus.type === 'capability' ? focus.data : pick(intelligenceCapabilities);
+        const s = focus && focus.type === 'surface' ? focus.data : pick(customerSurfaces);
+        parts.push({ pts: c.pts, t: 0, dur: 1100 + Math.random() * 400, pink: true, end: () => toSurface(s) });
+        spawnOut = focus && focus.type === 'capability' ? 420 : 520 + Math.random() * 500;
+      }
+      if (spawnIn <= 0) {
+        toSurface(focus && focus.type === 'surface' ? focus.data : pick(customerSurfaces));
+        spawnIn = focus && focus.type === 'surface' ? 520 : 380 + Math.random() * 380;
+      }
+    }
+    draw(now, dt);
+    if (visible && !document.hidden && !reduced) raf = requestAnimationFrame(loop);
+  }
+  const kick = () => { if (!raf && !reduced && !mobile) { last = 0; raf = requestAnimationFrame(loop); } };
+
+  function play() {
+    parts.length = 0;
+    if (reduced) { eco.classList.remove('pre'); eco.classList.add('settled'); intro = 1; if (!mobile) draw(0, 0); return; }
+    eco.classList.remove('settled'); eco.classList.add('no-tr', 'pre'); void eco.offsetWidth; eco.classList.remove('no-tr');
+    requestAnimationFrame(() => requestAnimationFrame(() => eco.classList.remove('pre')));
+    if (mobile) startAuto();
+    intro = 0; introStart = performance.now();
+    clearTimeout(play.t); play.t = setTimeout(() => eco.classList.add('settled'), 2300);
+    kick();
+  }
+
+  /* ============ PANEL ============ */
+  const pinEl = document.getElementById('pin');
+  const state = { hover: null, pin: null };
+  const ico = id => `<svg viewBox="0 0 16 16" fill="none" stroke="#55524D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="${ICON[id]}"/></svg>`;
+  const ring = `<svg viewBox="0 0 16 16" fill="none" stroke="#B08A52" stroke-width="1.3"><circle cx="8" cy="8" r="6.5" opacity=".5"/><circle cx="8" cy="8" r="3.5"/></svg>`;
+  const node = `<svg viewBox="0 0 16 16" fill="none" stroke="#D9576E" stroke-width="1.6"><circle cx="8" cy="8" r="4"/></svg>`;
+  const sysTags = `<div class="tags">${coreSystems.map(c => `<span class="tag">${c.label}</span>`).join('')}</div>`;
+  const chipList = (list, type) => `<div class="chips">${list.map(d => `<button type="button" class="chip" data-k="${type}:${d.id}">${d.label}</button>`).join('')}</div>`;
+
+  const mediaIco = d => `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+  function mediaTable(id) {
+    const has = SURFACE_MEDIA[id] || [];
+    return `<p class="sec">Media types</p><ul class="media">${MEDIA.map(m => { const on = has.includes(m.id); return `<li class="${on ? 'y' : 'n'}"><span class="mi-ic">${mediaIco(m.d)}</span><span class="mi-l">${m.label}${(MEDIA_NOTES[id]||{})[m.id] ? `<small class="mi-note">${MEDIA_NOTES[id][m.id]}</small>` : ''}</span><span class="mi-v" aria-label="${on ? 'Supported' : 'Not supported'}">${on ? '✓' : '—'}</span></li>`; }).join('')}</ul>`;
+  }
+  const industryChips = (limit) => {
+    const list = limit ? industries.slice(0, limit) : industries;
+    return `<div class="chips">${list.map(x => `<button type="button" class="chip" data-k="industry:${x.id}">${x.label}</button>`).join('')}${limit ? `<button type="button" class="chip more" data-k="industries:all">+${industries.length - limit} more →</button>` : ''}</div>`;
+  };
+  function tplDefault() {
+    return `<div class="card">
+        <p class="kick"><span class="ic">${ring}</span>Cognitive Commerce</p>
+        <h3 class="p-title">A 360° view</h3>
+        <p class="p-sub">Brand Expression is presented on ${NS_} surfaces. Customers behave differently on each, and that Channel Behavior flows into one set of Books of Record.</p>
+      </div>
+      <div class="tiles">
+        <button type="button" class="tile e" data-go="capability"><span class="n">${NC}</span><span class="l">Brand Expression capabilities</span></button>
+        <button type="button" class="tile x" data-go="surface"><span class="n">${NS_}</span><span class="l">Surfaces</span></button>
+        <button type="button" class="tile k" data-k="core:core"><span class="n">${NK}+</span><span class="l">Books of Record systems</span></button>
+        <button type="button" class="tile" data-k="industries:all"><span class="n">${NI}</span><span class="l">Industries</span></button>
+      </div>
+      <div class="card"><p class="sec">Industries</p>${industryChips(7)}</div>
+      <p class="hint">Hover or tap any element to see details. Press Esc to clear.</p>`;
+  }
+  function tplItem(it, pinned) {
+    const d = it.data;
+    const list = it.type === 'surface' ? customerSurfaces : it.type === 'capability' ? intelligenceCapabilities : it.type === 'industry' ? industries : null;
+    const kick = it.type === 'surface' ? `<span class="ic">${ico(d.id)}</span>Brand Experience`
+      : it.type === 'capability' ? `<span class="ic">${node}</span>Brand Expression`
+      : it.type === 'hub' ? `<span class="ic">${ring}</span>Presented on ${NS_} surfaces`
+      : it.type === 'channel' ? `<span class="ic">${ring}</span>Channel Behavior`
+      : it.type === 'industry' || it.type === 'industries' ? `<span class="ic">${ring}</span>Industries`
+      : `<span class="ic">${ring}</span>Books of Record`;
+    const close = pinned ? `<button type="button" class="close" data-close>✕ Close</button>` : '';
+    let extra = '';
+    if (it.type === 'surface') extra = `<div class="card">${mediaTable(d.id)}</div>`;
+    else if (it.type === 'core') extra = `<div class="card"><dl class="rows">${coreSystems.map(c => `<div><dt>${c.label}</dt><dd>${c.name}</dd></div>`).join('')}<div><dt>•••</dt><dd>And more — any system of record a brand runs</dd></div></dl></div>`;
+    else if (it.type === 'industries') extra = `<div class="card">${industryChips(0)}</div>`;
+    let nav = '';
+    if (list && pinned) {
+      const n = list.length, p = list[(d.idx - 1 + n) % n], q = list[(d.idx + 1) % n];
+      nav = `<div class="nav"><button type="button" data-k="${it.type}:${p.id}"><small>← Previous</small>${p.label}</button><button type="button" data-k="${it.type}:${q.id}"><small>Next →</small>${q.label}</button></div>`;
+    }
+    if (it.type === 'industry' && pinned) nav += `<button type="button" class="back" data-k="industries:all">← All industries</button>`;
+    return `<div class="card"><div style="display:flex;align-items:center;gap:8px"><p class="kick">${kick}</p>${close}</div>
+        <h3 class="p-title">${d.label}</h3><p class="p-sub">${d.desc}</p></div>
+      ${extra}${nav}${pinned ? '' : '<p class="hint">Click or press Enter to pin</p>'}`;
+  }
+  let lastSig = '';
+  function render(force) {
+    const key = state.pin || state.hover, sig = (key || '-') + (key === state.pin ? 'p' : '') + (mobile ? 'm' : '');
+    if (!force && sig === lastSig) return; lastSig = sig;
+    const sheet = document.getElementById('sheet');
+    if (mobile) {
+      pinEl.innerHTML = tplDefault();
+      sheet.hidden = true;
+      if (measuring) return;
+      mDetail();
+    } else {
+      sheet.hidden = true;
+      pinEl.innerHTML = key && items[key] ? tplItem(items[key], key === state.pin) : tplDefault();
+    }
+    pinEl.style.display = 'contents';
+    document.getElementById('panel').querySelectorAll('.card,.tiles,.nav,.hint').forEach(n => { n.classList.remove('p-in', 'swap'); void n.offsetWidth; n.classList.add('p-in', 'swap'); });
+  }
+
+  /* ============ STRIP ============ */
+  const strip = document.getElementById('strip');
+  const met = (cls, title, n, go, disp) => `<button type="button" class="met ${cls}" ${go}><p>${title}</p><b>${disp || n}</b><span class="ticks">${Array.from({ length: n }, (_, i) => `<i style="--d:${f(.4 + i * .03)}s"></i>`).join('')}</span></button>`;
+  strip.innerHTML = met('e', 'Brand Expression', NC, 'data-go="capability"') + met('x', 'Surfaces', NS_, 'data-go="surface"')
+    + met('k', 'Books of Record systems', NK, 'data-k="core:core"', NK + '+') + met('d', 'Industries', industries.length, 'data-k="industries:all"', NI);
+
+  /* ============ HIGHLIGHT ============ */
+  function highlight() {
+    const key = state.hover || state.pin;
+    eco.classList.remove('f-surface', 'f-capability', 'f-core', 'f-domain', 'f-hub', 'f-channel');
+    Object.keys(items).forEach(k => { const it = items[k]; it.el.classList.toggle('on', k === key); if (it.el.hasAttribute('aria-pressed')) it.el.setAttribute('aria-pressed', k === state.pin ? 'true' : 'false'); });
+    if (!mobile) {
+    customerSurfaces.forEach(s => { const on = key === 'surface:' + s.id; [s.wire, s.wire2].forEach(w => { w.classList.toggle('on', on); if (on) G.gWire.appendChild(w); }); });
+    G.link.classList.toggle('on', key === 'channel:channel' || key === 'core:core');
+    intelligenceCapabilities.forEach(c => { const on = key === 'capability:' + c.id; c.fan.classList.toggle('on', on); if (on) G.gWire.appendChild(c.fan); });
+    operatingDomains.forEach(d => { const on = key === 'domain:' + d.id; d.lab.classList.toggle('on', on); d.bg.classList.toggle('on', on); });
+    }
+    focus = key && items[key] ? items[key] : null;
+    if (focus) eco.classList.add('f-' + focus.type);
+    if (focus && focus.type === 'core') glow.bor = 1;
+    if (focus && focus.type === 'hub') glow.hub = 1;
+    if (focus && focus.type === 'channel') glow.ch = 1;
+    kick();
+  }
+  const rawSetHover = k => { if (state.hover === k) return; state.hover = k; highlight(); render(); };
+  function pin(k) { state.pin = k; highlight(); render(true); document.getElementById('sr').textContent = k ? `${items[k].data.label}. ${items[k].data.desc}` : 'Showing the overview.'; }
+
+  /* ============ EVENTS ============ */
+  const keyOf = t => { const n = t && t.closest && t.closest('[data-k]'); return n && eco.contains(n) ? n.dataset.k : null; };
+  let lastPointer = 'mouse';
+  eco.addEventListener('pointerdown', e => { lastPointer = e.pointerType; });
+  eco.addEventListener('pointerover', e => { if (e.pointerType === 'touch') return; const k = keyOf(e.target); if (k || !e.target.closest('#panel,#sheet')) setHover(k); });
+  eco.addEventListener('pointerleave', () => setHover(null));
+  eco.addEventListener('focusin', e => { const k = keyOf(e.target); if (k && !e.target.closest('#panel,#sheet')) setHover(k); });
+  eco.addEventListener('focusout', e => { if (keyOf(e.target)) setHover(null); });
+  eco.addEventListener('click', e => {
+    if (e.target.closest('#replay')) { pin(null); play(); return; }
+    if (e.target.closest('#mflow')) stopAuto();
+    const stb = e.target.closest('[data-stage]');
+    if (stb) { state.pin = null; highlight(); setStage(+stb.dataset.stage); return; }
+    const mgo = e.target.closest('[data-mgo]');
+    if (mgo) { state.pin = null; highlight(); setStage(mStage < 4 || +mgo.dataset.mgo < 0 ? mStage + (+mgo.dataset.mgo) : 0); return; }
+    if (e.target.closest('[data-close]')) { pin(null); document.getElementById('panel').focus({ preventScroll: true }); return; }
+    const go = e.target.closest('[data-go]');
+    if (go) { const first = go.dataset.go === 'surface' ? customerSurfaces[0] : intelligenceCapabilities[0]; pin(go.dataset.go + ':' + first.id); first.el.focus({ preventScroll: true }); return; }
+    const k = keyOf(e.target);
+    if (k) {
+      const fromChart = !e.target.closest('#panel,#sheet');
+      pin(k === state.pin && fromChart ? null : k);
+      return;
+    }
+    if (e.target.closest('svg')) pin(null);
+  });
+  eco.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { stopAuto(); pin(null); return; }
+    const k = keyOf(e.target), role = e.target.getAttribute && e.target.getAttribute('role');
+    if (k && role === 'button' && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); pin(k); return; }
+    if (k && role === 'button' && /Arrow(Up|Down|Left|Right)/.test(e.key)) {
+      const it = items[k], list = it.type === 'surface' ? customerSurfaces : it.type === 'capability' ? intelligenceCapabilities : null;
+      if (!list) return; e.preventDefault();
+      const dir = /Down|Right/.test(e.key) ? 1 : -1; list[(it.data.idx + dir + list.length) % list.length].el.focus();
+    }
+  });
+
+  /* ============ LIFECYCLE ============ */
+  build();
+  new ResizeObserver(size).observe(stage);
+  size(); render(true);
+  mq.addEventListener('change', () => { build(); size(); highlight(); render(true); if (eco.classList.contains('settled') || reduced) { eco.classList.remove('pre'); } lockRun(); });
+
+  function lockHeight(box, renderAll) {
+    let t = 0;
+    function run() {
+      if (!box.getBoundingClientRect().width) return;
+      box.style.minHeight = '';
+      let max = 0;
+      renderAll(() => { max = Math.max(max, box.getBoundingClientRect().height); });
+      box.style.minHeight = Math.ceil(max) + 'px';
+    }
+    run();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(run, 150); });
+    return run;
+  }
+  let hoverT = 0;
+  function setHover(k) { clearTimeout(hoverT); if (k == null) hoverT = setTimeout(() => rawSetHover(null), 160); else rawSetHover(k); }
+  const lockRun = lockHeight(document.getElementById('panel'), cb => {
+    const sv = { pin: state.pin, hover: state.hover }; measuring = true;
+    state.pin = state.hover = null; render(true); cb();
+    Object.keys(items).forEach(k => { state.pin = null; state.hover = k; render(true); cb(); state.hover = null; state.pin = k; render(true); cb(); });
+    Object.assign(state, sv); measuring = false; render(true);
+  });
+  let started = false;
+  new IntersectionObserver(es => es.forEach(en => {
+    visible = en.isIntersecting; if (visible) kick();
+    if (visible && en.intersectionRatio >= .15 && !started) { started = true; play(); }
+  }), { threshold: [0, .15] }).observe(eco);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) kick(); });
+})();
+</script>
+<script>(function(){var last=0;function send(){var h=Math.ceil(document.querySelector('.cc').getBoundingClientRect().height);if(h&&h!==last){last=h;try{parent.postMessage({v360h:h},'*')}catch(e){}}}
+if(window.ResizeObserver)new ResizeObserver(send).observe(document.querySelector('.cc'));addEventListener('load',send);addEventListener('resize',send);setTimeout(send,300);setTimeout(send,1500)})();</script></body>
+</html>
